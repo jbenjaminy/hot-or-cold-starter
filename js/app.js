@@ -12,6 +12,14 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});
 
+$("#guessButton").on('click', function(event) {
+	event.preventDefault();
+	hotOrCold();
+});
+// list of prev guesses (each guess set to <li> in ul#guessList)
+// ensure HTML5
+
+});
 
 var hotOrCold = function(){
 // guess count
@@ -20,36 +28,33 @@ var hotOrCold = function(){
 	var randomNumb = Math.floor((Math.random() * 100) + 1);
 		// verify that 1 & 100 are included in this range
 // user guess
-	var userGuess = parseInt($('#userGuess').val());
-	if ((userGuess >= 1) && (userGuess <= 100) && (userGuess !== NaN)) {
-		guessCount += 1;
+	var userNumb = parseInt($('#userGuess').val());
+	console.log("hello world",userNumb, typeof userNumb, (userNumb >= 1) && (userNumb <= 100) && (userNumb !== NaN));
+	if ((userNumb >= 1) && (userNumb <= 100) && (userNumb !== NaN)) {
+			var newCount = guessCount +=1;
+			$("span#count").val(newCount);
 			// apply to span#count
-		if (userGuess === randomNumb) {
-			console.log("You got it!")
+		if (userNumb === randomNumb) {
+			$("#feedback").text("You got it!");
 		   }
-		    else if (userGuess < (randomNumb + 5) && userGuess > (randomNumb - 5)) {
-		    console.log("You're hot!");
+		    else if (userNumb < (randomNumb + 5) && userNumb > (randomNumb - 5)) {
+		    $("#feedback").text("You're hot!");
 		   }
-		    else if (userGuess < (randomNumb + 15) && userGuess > (randomNumb - 15)) {
-		      console.log("You're warm");
+		    else if (userNumb < (randomNumb + 15) && userNumb > (randomNumb - 15)) {
+		      $("#feedback").text("You're warm");
 		   }
-		    else if (userGuess < (randomNumb + 25) && userGuess > (randomNumb - 25)) {
-		      console.log("You're cold!");
-		   } 
+		    else if (userNumb < (randomNumb + 25) && userNumb > (randomNumb - 25)) {
+		      $("#feedback").text("You're cold!");
+		   }
 		    else {
-		      console.log("Not even close");
-		   }
-
+		      $("#feedback").text("Not even close");
+		  }
+	  }
+//Direct output to Div#feedback
 // compares to guess
-	else alert("Invalid input, please choose an integer between 1 & 100.")
+	else {
+		alert("Invalid input, please choose an integer between 1 & 100.")
 	}
-
-// function giving feedback on proxity of guess; not relative to prev guess, but to correct answer (div#feedback)
-
-// list of prev guesses (each guess set to <li> in ul#guessList)
-
-// ensure HTML5
-
 }
 
 // var newGame = function() {
@@ -57,6 +62,6 @@ var hotOrCold = function(){
 // 	// be able to start consecutive games without reloading or refreshing
 // }
 
-});
+
 
 // splitting the code into functions (anywhere that code repeats and to group things that do one thing)
