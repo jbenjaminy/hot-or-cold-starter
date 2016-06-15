@@ -12,56 +12,79 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});
 
-$("#guessButton").on('click', function(event) {
-	event.preventDefault();
-	hotOrCold();
-});
-// list of prev guesses (each guess set to <li> in ul#guessList)
-// ensure HTML5
+  	/*--- Run user's guess ---*/
+	$("#guessButton").on('click', function(event) {
+		event.preventDefault();
+		hotOrCold();
+	});
+
+	/*--- New game function ---*/
+	$(".new").on('click', function(event){
+		event.preventDefault();
+		newGame();
+	});
 
 });
 
+// variables
+var guessCount = 0;
+var randomNumb = Math.floor((Math.random() * 100) + 1);
+
+// functions
 var hotOrCold = function(){
-// guess count
-	var guessCount = 0;
-// number generator
-	var randomNumb = Math.floor((Math.random() * 100) + 1);
-		// verify that 1 & 100 are included in this range
-// user guess
+
+	// user input
 	var userNumb = parseInt($('#userGuess').val());
-	console.log("hello world",userNumb, typeof userNumb, (userNumb >= 1) && (userNumb <= 100) && (userNumb !== NaN));
+	
+	// for valid guesses
 	if ((userNumb >= 1) && (userNumb <= 100) && (userNumb !== NaN)) {
-			var newCount = guessCount +=1;
-			$("span#count").val(newCount);
-			// apply to span#count
+
+		// # of guesses
+		guessCount +=1;
+		$("#count").text(guessCount);
+
+		// list of past guesses
+		$("#guessList").append('<li>'+userNumb+'<li>')
+		
+		// guess feedback
 		if (userNumb === randomNumb) {
-			$("#feedback").text("You got it!");
+			$("h2").text("You got it!");
 		   }
-		    else if (userNumb < (randomNumb + 5) && userNumb > (randomNumb - 5)) {
-		    $("#feedback").text("You're hot!");
+		// else if (randomNumb - userNumb)
+		else if (userNumb < (randomNumb + 5) && userNumb > (randomNumb - 5)) {
+		    $("h2").text("You're hot!");
 		   }
-		    else if (userNumb < (randomNumb + 15) && userNumb > (randomNumb - 15)) {
-		      $("#feedback").text("You're warm");
+		else if (userNumb < (randomNumb + 15) && userNumb > (randomNumb - 15)) {
+		      $("h2").text("You're warm");
 		   }
-		    else if (userNumb < (randomNumb + 25) && userNumb > (randomNumb - 25)) {
-		      $("#feedback").text("You're cold!");
+		else if (userNumb < (randomNumb + 25) && userNumb > (randomNumb - 25)) {
+		      $("h2").text("You're cold!");
 		   }
-		    else {
-		      $("#feedback").text("Not even close");
+		else {
+		      $("h2").text("Not even close");
 		  }
 	  }
-//Direct output to Div#feedback
-// compares to guess
+
+	// for invalid guesses
 	else {
 		alert("Invalid input, please choose an integer between 1 & 100.")
 	}
+
+	$("#userGuess").val("");
 }
 
-// var newGame = function() {
-// 	// reset # of guesses, feedback section, list of guesses
-// 	// be able to start consecutive games without reloading or refreshing
-// }
+var newGame = function(){
+	//reset random number
+	randomNumb = Math.floor((Math.random() * 100) + 1);
 
+	// reset guessCount
+	guessCount = 0;
+	$("#count").text(guessCount);
 
+	// reset feedback
+	$("h2").text("Make your Guess!");
 
-// splitting the code into functions (anywhere that code repeats and to group things that do one thing)
+	// reset guessList
+	$("#guessList").text("");
+}
+
