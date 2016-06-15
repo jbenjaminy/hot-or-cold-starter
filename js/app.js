@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	
+
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
@@ -22,17 +22,27 @@ var hotOrCold = function(){
 // user guess
 	var userGuess = parseInt($('#userGuess').val());
 	if ((userGuess >= 1) && (userGuess <= 100) && (userGuess !== NaN)) {
-		guessCount += 1; 
+		guessCount += 1;
 			// apply to span#count
 		if (userGuess === randomNumb) {
 			console.log("You got it!")
-		}
-		else if (userGuess != randomNumb) {
-			console.log("Sorry!")
-		}
+		   }
+		    else if (userGuess < (randomNumb + 5) && userGuess > (randomNumb - 5)) {
+		    console.log("You're hot!");
+		   }
+		    else if (userGuess < (randomNumb + 15) && userGuess > (randomNumb - 15)) {
+		      console.log("You're warm");
+		   }
+		    else if (userGuess < (randomNumb + 25) && userGuess > (randomNumb - 25)) {
+		      console.log("You're cold!");
+		   } 
+		    else {
+		      console.log("Not even close");
+		   }
+
 // compares to guess
 	else alert("Invalid input, please choose an integer between 1 & 100.")
-	} 
+	}
 
 // function giving feedback on proxity of guess; not relative to prev guess, but to correct answer (div#feedback)
 
