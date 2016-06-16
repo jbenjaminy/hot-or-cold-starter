@@ -4,7 +4,6 @@ $(document).ready(function(){
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
-
   	});
 
   	/*--- Hide information modal box ---*/
@@ -35,7 +34,7 @@ var hotOrCold = function(){
 
 	// user input
 	var userNumb = parseInt($('#userGuess').val());
-	
+
 	// for valid guesses
 	if ((userNumb >= 1) && (userNumb <= 100) && (userNumb !== NaN)) {
 
@@ -45,7 +44,7 @@ var hotOrCold = function(){
 
 		// list of past guesses
 		$("#guessList").append('<li>'+userNumb+'<li>')
-		
+
 		// guess feedback
 		if (userNumb === randomNumb) {
 			$("h2").text("You got it!");
