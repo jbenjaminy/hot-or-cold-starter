@@ -86,4 +86,3 @@ var newGame = function(){
 	// reset guessList
 	$("#guessList").text("");
 }
-
